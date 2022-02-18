@@ -2,21 +2,65 @@ body {
     background-color: dimgray;
 }
 
-.container #input {
-    display: grid;
-    grid-auto-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-    "api-key api-key . ."
-    ". . ."
-    ". . ."
-    ". . ."
-    ". . ."
-    ". . ."
-    ". . ."
-    ". . ."
-    ". . ."
-    ". . .";
+input {
+    background-color: rgb(1, 1, 1, .4);
+    color: white;
 }
-.api-key { grid-area: api-key; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.container #calculator {
+    display: grid;
+    grid-auto-columns: 100px auto auto 100px;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+    gap: 5px 50px;
+    grid-template-areas:
+    "label api   api   blacksmith"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+    "label cur   goal  cost"
+}
+
+.api-key {
+    display: grid;
+    grid-area: api;
+}
+
+.blacksmith {
+    display: grid;
+    grid-area: blacksmith;
+}
+
+.labels {
+    display: grid;
+    grid-area: label;
+    justify-content: right;
+    row-gap: 5px;
+}
+
+.current {
+    display: grid;
+    grid-area: cur;
+    row-gap: 5px;
+}
+
+.goal {
+    display: grid;
+    grid-area: goal;
+    row-gap: 5px;
+}
+
+.cost {
+    display: grid;
+    grid-area: cost;
+    row-gap: 5px;
+}

@@ -8,32 +8,62 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        This is the header.
-    </header>
-    <div class = 'container'>
-        <div id = 'input'>
-            <input class = "api-key" type="text">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
-            <input type="number", min="1" value="1">
+<header>
+    This is the header.
+</header>
+<div class='container'>
+    <div id='calculator'>
+        <input class="api-key" type="text">
+        <input class="blacksmith" type="number" value="50">
+        <div class="labels">
+            <div>API Key</div>
+            <div>Shortsword</div>
+            <div>Dagger</div>
+            <div>Helmet</div>
+            <div>Shoulders</div>
+            <div>Wrists</div>
+            <div>Hands</div>
+            <div>Chestpiece</div>
+            <div>Leggings</div>
+            <div>Boots</div>
         </div>
+        <div class="current">
+            <input id="current_sword" type="number" min="1" value="1">
+            <input id="current_dagger" type="number" min="1" value="1">
+            <input id="current_helmet" type="number" min="1" value="1">
+            <input id="current_shoulders" type="number" min="1" value="1">
+            <input id="current_wrists" type="number" min="1" value="1">
+            <input id="current_gloves" type="number" min="1" value="1">
+            <input id="current_chest" type="number" min="1" value="1">
+            <input id="current_legs" type="number" min="1" value="1">
+            <input id="current_boots" type="number" min="1" value="1">
+        </div>
+        <div class="goal">
+            <input id="goal_sword" type="number" min="1" value="1">
+            <input id="goal_dagger" type="number" min="1" value="1">
+            <input id="goal_helmet" type="number" min="1" value="1">
+            <input id="goal_shoulders" type="number" min="1" value="1">
+            <input id="goal_wrists" type="number" min="1" value="1">
+            <input id="goal_gloves" type="number" min="1" value="1">
+            <input id="goal_chest" type="number" min="1" value="1">
+            <input id="goal_legs" type="number" min="1" value="1">
+            <input id="goal_boots" type="number" min="1" value="1">
+        </div>
+        <div class="cost">
+            <div id="cost_sword">placeholder</div>
+            <div id="cost_dagger">placeholder</div>
+            <div id="cost_helmet">placeholder</div>
+            <div id="cost_shoulders">placeholder</div>
+            <div id="cost_wrists">placeholder</div>
+            <div id="cost_gloves">placeholder</div>
+            <div id="cost_chest">placeholder</div>
+            <div id="cost_legs">placeholder</div>
+            <div id="cost_boots">placeholder</div>
+        </div>
+        <div class="total">TOTAL COST: </div>
     </div>
-    <script src="script.js"></script>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
