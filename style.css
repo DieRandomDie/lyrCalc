@@ -1,0 +1,22 @@
+body {
+    background-color: dimgray;
+}
+
+.container #input {
+    display: grid;
+    grid-auto-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+    "api-key api-key . ."
+    ". . ."
+    ". . ."
+    ". . ."
+    ". . ."
+    ". . ."
+    ". . ."
+    ". . ."
+    ". . ."
+    ". . .";
+}
+.api-key { grid-area: api-key; }
