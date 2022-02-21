@@ -12,6 +12,11 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+.container {
+    max-width: 725px;
+    margin: auto;
+}
+
 .container #calculator {
     display: grid;
     grid-auto-columns: 100px auto auto 100px;
