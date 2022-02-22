@@ -3,18 +3,26 @@ current = document.getElementsByClassName('current')[0].children
 goal = document.getElementsByClassName('goal')[0].children
 console.log(apikey.value)
 let equips
+let sameToggle = false
 
-var apikey = document.getElementsByClassName("api-key")[0];
-apikey.addEventListener("keydown", function(event) {
+var apiKey = document.getElementsByClassName("api-key")[0];
+apiKey.addEventListener("keydown", function(event) {
     if ((event.keyCode === 9 || event.keyCode === 13) /*&& apikey.value != ''*/) {
         if (event.keyCode === 13) {
             event.preventDefault()
             document.getElementsByClassName("blacksmith")[0].focus();
         }
-        equips = fetchAPI(apikey.value)
+        equips = fetchAPI(apiKey.value)
     }
-
 });
+
+var equalToggle = document.getElementsByClassName("check")[0];
+equalToggle.addEventListener("change", function(event) {
+    if(console.log(equalToggle.checked)) {
+        sameToggle = true
+        
+    }
+})
 
 function fetchAPI(api_key) {
     let equipment = {"orbs":[],"levels":[]}
