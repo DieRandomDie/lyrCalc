@@ -69,8 +69,8 @@ function ecalc(equip_name) {
         goalValue = 10000
         goal.value = 10000
     }
-    if (discountValue > 50) {
-        discountValue = 50
+    if (discountValue < .5) {
+        discountValue = .5
         discount.value = 50
     }
     for (let i = currentValue + 1; i <= goalValue; i++) {
