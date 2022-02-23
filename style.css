@@ -18,70 +18,42 @@ input::-webkit-inner-spin-button {
     margin: auto;
 }
 
-.container #calculator {
+.calculator {
     display: grid;
-    grid-auto-columns: auto auto auto auto;
-    gap: 5px 5px;
-    grid-template-areas:
-    ". . hlabel1 hlabel2"
-    "clabel api   check   blacksmith"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
-    "clabel cur   goal  cost"
+    grid-template-columns: 200px 200px 200px;
+    gap:10px;
 }
 
-.api-key {
+.top {
     display: grid;
-    grid-area: api;
+    grid-column: span 3;
+    grid-template-columns: repeat(6, 1fr);
 }
 
-.check {
+.left {
     display: grid;
-    grid-area: check;
+    grid-template-columns: auto auto;
+    gap: 3px 30px;
+    justify-content: end;
 }
 
-.blacksmith {
+.center {
     display: grid;
-    grid-area: blacksmith;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 30px;
+    justify-content: end;
 }
 
-.checklabel {
-    display: grid;
-    grid-area: hlabel1;
+.center legend {
+    text-align: center;
 }
 
-.bsmithlabel {
+.right {
     display: grid;
-    grid-area: hlabel2;
-    row-gap: 5px;
-}
-.clabels {
-    display: grid;
-    grid-area: clabel;
-    justify-content: center;
-    row-gap: 5px;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 5px;
 }
 
-.current {
-    display: grid;
-    grid-area: cur;
-    row-gap: 5px;
-}
-
-.goal {
-    display: grid;
-    grid-area: goal;
-    row-gap: 5px;
-}
-
-.cost {
-    display: grid;
-    grid-area: cost;
-    row-gap: 5px;
+.right legend, .right output {
+    text-align: right;
 }

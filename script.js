@@ -1,31 +1,24 @@
-apikey = document.getElementsByClassName("api-key")[0]
-current = document.getElementsByClassName('current')[0].children
-goal = document.getElementsByClassName('goal')[0].children
+let apikey = document.getElementById("api-key")
+let current = document.getElementsByClassName('current-equip-class')
+const inputs = document.querySelectorAll('input.current-equip-class')
+let goal = document.getElementsByClassName('goal-equip-class')
 console.log(apikey.value)
 let equips
-let sameToggle = false
 
-var apiKey = document.getElementsByClassName("api-key")[0];
-apiKey.addEventListener("keydown", function(event) {
-    if ((event.keyCode === 9 || event.keyCode === 13) /*&& apikey.value != ''*/) {
+apikey.addEventListener("keydown", function(event) {
+    if ((event.keyCode === 9 || event.keyCode === 13) && apikey.value !== '') {
         if (event.keyCode === 13) {
             event.preventDefault()
-            document.getElementsByClassName("blacksmith")[0].focus();
+            document.getElementById("blacksmith").focus();
         }
-        equips = fetchAPI(apiKey.value)
+        equips = fetchAPI(apikey.value)
     }
 });
 
-var equalToggle = document.getElementsByClassName("check")[0];
-equalToggle.addEventListener("change", function(event) {
-    if(console.log(equalToggle.checked)) {
-        sameToggle = true
-        
-    }
-})
+
 
 function fetchAPI(api_key) {
-    let equipment = {"orbs":[],"levels":[]}
+    let equipment = {}
 
     fetch('https://lyrania.co.uk/api/accounts.php?search='+api_key)
         .then(res => {
@@ -33,17 +26,18 @@ function fetchAPI(api_key) {
                 console.log("FETCH RETURNED CODE: "+res.status)
                 res.json()
                     .then(data => {
+                        console.log(data.equipment)
                         let x = 0
-                        let replace = document.createElement('div')
                         for (const [key, value] of Object.entries(data.equipment)) {
                             current[x].value = value
-                            replace.innerHTML = current[x].value
                             goal[x].value = value
                             x++
-                            //equipment.orbs.push(key.split(" ")[0])
-                            //equipment.levels.push(value)
+                            equipment[key.split(" ")[1]] = {
+                                orb: key.split(" ")[0],
+                                level: Number(value)
+                            }
                         }
-
+                        inputs.forEach(input => input.disabled = true)
                     })
             } else {
                 console.log("FETCH FAILED. ERROR:" + res.status)
