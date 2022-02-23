@@ -3,27 +3,14 @@ let current = document.getElementsByClassName('current-equip-class')
 const inputs = document.querySelectorAll('input.current-equip-class')
 let goal = document.getElementsByClassName('goal-equip-class')
 console.log(apikey.value)
-let equips
-
-apikey.addEventListener("keydown", function(event) {
-    if ((event.keyCode === 9 || event.keyCode === 13) && apikey.value !== '') {
-        if (event.keyCode === 13) {
-            event.preventDefault()
-            document.getElementById("blacksmith").focus();
-        }
-        equips = fetchAPI(apikey.value)
-    }
-});
-
+let equipment = {}
 
 
 function fetchAPI(api_key) {
-    let equipment = {}
-
-    fetch('https://lyrania.co.uk/api/accounts.php?search='+api_key)
+    fetch('https://lyrania.co.uk/api/accounts.php?search=' + api_key)
         .then(res => {
             if (res.ok) {
-                console.log("FETCH RETURNED CODE: "+res.status)
+                console.log("FETCH RETURNED CODE: " + res.status)
                 res.json()
                     .then(data => {
                         console.log(data.equipment)
@@ -43,5 +30,17 @@ function fetchAPI(api_key) {
                 console.log("FETCH FAILED. ERROR:" + res.status)
             }
         })
-    return equipment
+}
+
+
+function ecalc(equip_name) {
+    let current = Number(document.getElementById("current-" + equip_name).value)
+    let goal = Number(document.getElementById("goal-" + equip_name).value)
+    let result = document.getElementById("cost-" + equip_name)
+    let discount = 1 - Number(document.getElementById("blacksmith").value)/100
+    let cost = 0
+    for (let i = current+1; i <= goal; i++) {
+        cost += ((0.005 * (i ** 2)) - .0101 * i + .0052) * discount
+    }
+    result.value = Math.ceil(cost).toLocaleString() + "p"
 }
