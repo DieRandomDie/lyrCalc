@@ -1,12 +1,35 @@
 let apikey = document.getElementById("api-key")
 let current = document.getElementsByClassName('current-equip-class')
-const inputs = document.querySelectorAll('input.current-equip-class')
+const currentInputs = document.querySelectorAll('input.current-equip-class')
 let goal = document.getElementsByClassName('goal-equip-class')
+const goalInputs = document.querySelectorAll('input.goal-equip-class')
+const costOutputs = document.querySelectorAll('output.cost-equip-class')
 console.log(apikey.value)
 let equipment = {}
 
 
+function toggleRatio() {
+}
+
+function updateAllGoals() {
+    let equipName
+    costOutputs.forEach(e => {
+        equipName = e.labels[0].innerHTML.toLowerCase()
+        ecalc(equipName)
+    })
+}
+
+
 function fetchAPI(api_key) {
+    if (!apikey.value) {
+        currentInputs.forEach(input => {
+            input.disabled = false
+            input.value = 1
+        })
+        updateAllGoals()
+        return
+    }
+
     fetch('https://lyrania.co.uk/api/accounts.php?search=' + api_key)
         .then(res => {
             if (res.ok) {
@@ -24,7 +47,7 @@ function fetchAPI(api_key) {
                                 level: Number(value)
                             }
                         }
-                        inputs.forEach(input => input.disabled = true)
+                        currentInputs.forEach(input => input.disabled = true)
                     })
             } else {
                 console.log("FETCH FAILED. ERROR:" + res.status)
@@ -34,13 +57,24 @@ function fetchAPI(api_key) {
 
 
 function ecalc(equip_name) {
-    let current = Number(document.getElementById("current-" + equip_name).value)
-    let goal = Number(document.getElementById("goal-" + equip_name).value)
+    let current = document.getElementById("current-" + equip_name)
+    let currentValue = Number(current.value)
+    let goal = document.getElementById("goal-" + equip_name)
+    let goalValue = Number(goal.value)
+    let discount = document.getElementById("blacksmith")
+    let discountValue = 1 - Number(discount.value) / 100
     let result = document.getElementById("cost-" + equip_name)
-    let discount = 1 - Number(document.getElementById("blacksmith").value)/100
     let cost = 0
-    for (let i = current+1; i <= goal; i++) {
-        cost += ((0.005 * (i ** 2)) - .0101 * i + .0052) * discount
+    if (goalValue > 10000) {
+        goalValue = 10000
+        goal.value = 10000
+    }
+    if (discountValue > 50) {
+        discountValue = 50
+        discount.value = 50
+    }
+    for (let i = currentValue + 1; i <= goalValue; i++) {
+        cost += ((0.005 * (i ** 2)) - .0101 * i + .0052) * discountValue
     }
     result.value = Math.ceil(cost).toLocaleString() + "p"
 }

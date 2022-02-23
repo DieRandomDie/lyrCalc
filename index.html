@@ -15,30 +15,30 @@
             <label for="api-key">API Key</label>
             <input type="password" id="api-key" onfocusout="fetchAPI(this.value)">
             <label for="blacksmith">Blacksmith</label>
-            <input type="number" id="blacksmith" value="50" max="50">
+            <input type="number" id="blacksmith" value="50" max="50" oninput="updateAllGoals()">
             <label for="toggle-ratio">Toggle Ratio</label>
-            <input type="checkbox" id="toggle-ratio">
+            <input type="checkbox" id="toggle-ratio" oninput="toggleRatio(); updateAllGoals()">
         </fieldset>
         <fieldset class="current left" id="current-equips">
             <legend>Current Equips</legend>
             <label for="current-shortsword">Shortsword</label>
-            <input type="number" class="current-equip-class" id="current-shortsword" value="1">
+            <input type="number" class="current-equip-class" id="current-shortsword" value="1" oninput="ecalc('shortsword')">
             <label for="current-dagger">Dagger</label>
-            <input type="number" class="current-equip-class" id="current-dagger" value="1">
+            <input type="number" class="current-equip-class" id="current-dagger" value="1" oninput="ecalc('dagger')">
             <label for="current-helmet">Helmet</label>
-            <input type="number" class="current-equip-class" id="current-helmet" value="1">
+            <input type="number" class="current-equip-class" id="current-helmet" value="1" oninput="ecalc('helmet')">
             <label for="current-shoulders">Shoulders</label>
-            <input type="number" class="current-equip-class" id="current-shoulders" value="1">
+            <input type="number" class="current-equip-class" id="current-shoulders" value="1" oninput="ecalc('shoulders')">
             <label for="current-wrists">Wrists</label>
-            <input type="number" class="current-equip-class" id="current-wrists" value="1">
+            <input type="number" class="current-equip-class" id="current-wrists" value="1" oninput="ecalc('wrists')">
             <label for="current-gloves">Gloves</label>
-            <input type="number" class="current-equip-class" id="current-gloves" value="1">
+            <input type="number" class="current-equip-class" id="current-gloves" value="1" oninput="ecalc('gloves')">
             <label for="current-chestpiece">Chestpiece</label>
-            <input type="number" class="current-equip-class" id="current-chestpiece" value="1">
+            <input type="number" class="current-equip-class" id="current-chestpiece" value="1" oninput="ecalc('chestpiece')">
             <label for="current-leggings">Leggings</label>
-            <input type="number" class="current-equip-class" id="current-leggings" value="1">
+            <input type="number" class="current-equip-class" id="current-leggings" value="1" oninput="ecalc('leggings')">
             <label for="current-boots">Boots</label>
-            <input type="number" class="current-equip-class" id="current-boots" value="1">
+            <input type="number" class="current-equip-class" id="current-boots" value="1" oninput="ecalc('boots')">
         </fieldset>
         <fieldset class="goal center" id="goal-equips">
             <legend>Goal Equips</legend>
@@ -64,23 +64,23 @@
         <fieldset class="totals right">
             <legend>Equipment Cost</legend>
             <label for="cost-shortsword">Shortsword</label>
-            <output id="cost-shortsword">0p</output>
+            <output class="cost-equip-class" id="cost-shortsword">0p</output>
             <label for="cost-dagger">Dagger</label>
-            <output id="cost-dagger">0p</output>
+            <output class="cost-equip-class" id="cost-dagger">0p</output>
             <label for="cost-helmet">Helmet</label>
-            <output id="cost-helmet">0p</output>
+            <output class="cost-equip-class" id="cost-helmet">0p</output>
             <label for="cost-shoulders">Shoulders</label>
-            <output id="cost-shoulders">0p</output>
+            <output class="cost-equip-class" id="cost-shoulders">0p</output>
             <label for="cost-wrists">Wrists</label>
-            <output id="cost-wrists">0p</output>
+            <output class="cost-equip-class" id="cost-wrists">0p</output>
             <label for="cost-gloves">Gloves</label>
-            <output id="cost-gloves">0p</output>
+            <output class="cost-equip-class" id="cost-gloves">0p</output>
             <label for="cost-chestpiece">Chestpiece</label>
-            <output id="cost-chestpiece">0p</output>
+            <output class="cost-equip-class" id="cost-chestpiece">0p</output>
             <label for="cost-leggings">Leggings</label>
-            <output id="cost-leggings">0p</output>
+            <output class="cost-equip-class" id="cost-leggings">0p</output>
             <label for="cost-boots">Boots</label>
-            <output id="cost-boots">0p</output>
+            <output class="cost-equip-class" id="cost-boots">0p</output>
         </fieldset>
     </form>
 </main>
