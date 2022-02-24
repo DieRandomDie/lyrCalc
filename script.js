@@ -78,3 +78,23 @@ function ecalc(equip_name) {
     }
     result.value = Math.ceil(cost).toLocaleString() + "p"
 }
+
+
+window.onload = function() {
+    let username = "DieRandomDie"
+    fetch('https://lyrania.co.uk/api/accounts.php?search=12282')
+        .then(res => {
+            if (res.ok && res.status === 200) {
+                console.log("FETCH RETURNED CODE: " + res.status)
+                res.json()
+                    .then(data => {
+                        console.log(data.name)
+                        username = data.name
+                        document.getElementById("footer").innerHTML = `Found an issue? Want to meme on me? Whisper or mail ${username} in game.`
+                    })
+            } else {
+                console.log("FETCH FAILED. ERROR:" + res.status)
+                document.getElementById("footer").innerHTML = `Found an issue? Want to meme on me? Whisper or mail ${username} in game. (API failed to fetch my current name. Ask in main.)`
+            }
+        })
+}
