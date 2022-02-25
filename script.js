@@ -12,6 +12,7 @@ let equipment = {}
 
 function toggleRatio() {
     if(toggle.checked) {
+        toggleRatioUpdate()
         sameGoals.forEach(goal => {
             goal.disabled = true
             goal.style.visibility = "hidden"
