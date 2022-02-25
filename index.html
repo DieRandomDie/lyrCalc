@@ -13,7 +13,7 @@
         <fieldset class="settings top">
             <legend>Settings</legend>
             <label for="api-key">API Key</label>
-            <input type="password" id="api-key" onfocusout="fetchAPI(this.value)">
+            <input type="password" id="api-key" minlength="32" maxlength="32" onfocusout="fetchAPI(this.value);">
             <label for="blacksmith">Blacksmith</label>
             <input type="number" id="blacksmith" value="50" max="50" oninput="updateAllGoals()">
             <label for="toggle-ratio">Toggle Ratio</label>
@@ -43,23 +43,23 @@
         <fieldset class="goal center" id="goal-equips">
             <legend>Goal Equips</legend>
             <label for="goal-shortsword">Shortsword</label>
-            <input type="number" class="goal-equip-class" id="goal-shortsword" value="1" oninput="ecalc('shortsword')">
+            <input type="number" class="goal-equip-class" id="goal-shortsword" value="1" oninput="ecalc('shortsword'); toggleRatioUpdate()">
             <label for="goal-dagger">Dagger</label>
-            <input type="number" class="goal-equip-class" id="goal-dagger" value="1" oninput="ecalc('dagger')">
+            <input type="number" class="goal-equip-class same-goal-equip-class" id="goal-dagger" value="1" oninput="ecalc('dagger'); toggleRatioUpdate()">
             <label for="goal-helmet">Helmet</label>
-            <input type="number" class="goal-equip-class" id="goal-helmet" value="1" oninput="ecalc('helmet')">
+            <input type="number" class="goal-equip-class" id="goal-helmet" value="1" oninput="ecalc('helmet'); toggleRatioUpdate()">
             <label for="goal-shoulders">Shoulders</label>
-            <input type="number" class="goal-equip-class" id="goal-shoulders" value="1" oninput="ecalc('shoulders')">
+            <input type="number" class="goal-equip-class same-goal-equip-class" id="goal-shoulders" value="1" oninput="ecalc('shoulders'); toggleRatioUpdate()">
             <label for="goal-wrists">Wrists</label>
-            <input type="number" class="goal-equip-class" id="goal-wrists" value="1" oninput="ecalc('wrists')">
+            <input type="number" class="goal-equip-class same-goal-equip-class" id="goal-wrists" value="1" oninput="ecalc('wrists'); toggleRatioUpdate()">
             <label for="goal-gloves">Gloves</label>
-            <input type="number" class="goal-equip-class" id="goal-gloves" value="1" oninput="ecalc('gloves')">
+            <input type="number" class="goal-equip-class same-goal-equip-class" id="goal-gloves" value="1" oninput="ecalc('gloves'); toggleRatioUpdate()">
             <label for="goal-chestpiece">Chestpiece</label>
-            <input type="number" class="goal-equip-class" id="goal-chestpiece" value="1" oninput="ecalc('chestpiece')">
+            <input type="number" class="goal-equip-class same-goal-equip-class" id="goal-chestpiece" value="1" oninput="ecalc('chestpiece'); toggleRatioUpdate()">
             <label for="goal-leggings">Leggings</label>
-            <input type="number" class="goal-equip-class" id="goal-leggings" value="1" oninput="ecalc('leggings')">
+            <input type="number" class="goal-equip-class same-goal-equip-class" id="goal-leggings" value="1" oninput="ecalc('leggings'); toggleRatioUpdate()">
             <label for="goal-boots">Boots</label>
-            <input type="number" class="goal-equip-class" id="goal-boots" value="1" oninput="ecalc('boots')">
+            <input type="number" class="goal-equip-class same-goal-equip-class" id="goal-boots" value="1" oninput="ecalc('boots'); toggleRatioUpdate()">
         </fieldset>
         <fieldset class="totals right">
             <legend>Equipment Cost</legend>
@@ -81,6 +81,10 @@
             <output class="cost-equip-class" id="cost-leggings">0p</output>
             <label for="cost-boots">Boots</label>
             <output class="cost-equip-class" id="cost-boots">0p</output>
+        </fieldset>
+        <fieldset id="total">
+            <legend>Total Cost</legend>
+            <div id="total-cost">0p</div>
         </fieldset>
     </form>
 </main>
