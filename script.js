@@ -151,4 +151,4 @@ window.onload = function() {
 }
 
 
-let power = ((0.5*level*(level-1)+1)+((0.5*level*(level-1)+1)*orbPercent))*(1+enchantPercent)*(1+festPercent)
+//let power = ((0.5*level*(level-1)+1)+((0.5*level*(level-1)+1)*orbPercent))*(1+enchantPercent)*(1+festPercent)
