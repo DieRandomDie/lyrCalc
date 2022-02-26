@@ -133,7 +133,8 @@ function totalCost() {
 
 
 window.onload = function () {
-    if (!apikey.value && apikey.value.length === 32) {
+    if (apikey.value && apikey.value.length === 32) {
+        console.log("something happened")
         fetchAPI(apikey.value)
     }
     let username = "DieRandomDie"
