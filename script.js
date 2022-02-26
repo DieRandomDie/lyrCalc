@@ -133,10 +133,13 @@ function totalCost() {
 
 
 window.onload = function () {
-    if (apikey.value && apikey.value.length === 32) {
-        console.log("something happened")
-        fetchAPI(apikey.value)
-    }
+    setTimeout(() => {
+        console.log(apikey.value)
+        if (apikey.value && apikey.value.length === 32) {
+            console.log("something happened")
+            fetchAPI(apikey.value)
+        }
+    }, 1000)
     let username = "DieRandomDie"
     fetch('https://lyrania.co.uk/api/accounts.php?search=12282')
         .then(res => {
