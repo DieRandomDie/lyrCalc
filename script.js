@@ -9,9 +9,9 @@ const costOutputs = document.querySelectorAll('output.cost-equip-class')
 console.log(apikey.value)
 let equipment = {}
 
-
+//Disable or enable input when the Toggle Ratio checkbox is used.
 function toggleRatio() {
-    if(toggle.checked) {
+    if (toggle.checked) {
         toggleRatioUpdate()
         sameGoals.forEach(goal => {
             goal.disabled = true
@@ -25,9 +25,9 @@ function toggleRatio() {
     }
 }
 
-
+//Need to find a less retard way of doing this.
 function toggleRatioUpdate() {
-    if(toggle.checked) {
+    if (toggle.checked) {
         goalInputs[1].value = goalInputs[0].value
         goalInputs[3].value = goalInputs[2].value
         goalInputs[4].value = goalInputs[2].value
@@ -39,6 +39,7 @@ function toggleRatioUpdate() {
     }
 }
 
+//to be ran any time everything needs to be updated at once.
 function updateAllGoals() {
     let equipName
     costOutputs.forEach(e => {
@@ -131,7 +132,10 @@ function totalCost() {
 }
 
 
-window.onload = function() {
+window.onload = function () {
+    if (!apikey.value && apikey.value.length === 32) {
+        fetchAPI(!apikey.value)
+    }
     let username = "DieRandomDie"
     fetch('https://lyrania.co.uk/api/accounts.php?search=12282')
         .then(res => {
