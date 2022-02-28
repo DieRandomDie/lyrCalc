@@ -11,22 +11,27 @@ let equipment = {}
 
 
 function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + ";path=/";
+    if (getCookie("key")) {
+        return 0
+    }
+    if (apikey.value.length == 32) {
+        document.cookie = cname + "=" + cvalue + ";path=/"
+    }
 }
 
 function getCookie(cname) {
     let name = cname + "=";
-    let ca = document.cookie.split(';');
+    let ca = document.cookie.split(';')
     for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
+        let c = ca[i]
         while (c.charAt(0) == ' ') {
-            c = c.substring(1);
+            c = c.substring(1)
         }
         if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+            return c.substring(name.length, c.length)
         }
     }
-    return "";
+    return ""
 }
 
 

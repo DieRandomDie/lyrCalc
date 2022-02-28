@@ -13,7 +13,7 @@
         <fieldset class="settings top">
             <legend>Settings</legend>
             <label for="api-key">API Key</label>
-            <input type="password" id="api-key" minlength="32" maxlength="32" onfocusout="fetchAPI(this.value);">
+            <input type="password" id="api-key" minlength="32" maxlength="32" onfocusout="setCookie('key',this.value);fetchAPI(this.value);">
             <label for="blacksmith">Blacksmith</label>
             <input type="number" id="blacksmith" value="50" max="50" oninput="updateAllGoals()">
             <label for="toggle-ratio">Toggle Ratio</label>
