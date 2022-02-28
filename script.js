@@ -96,10 +96,8 @@ function fetchAPI(api_key) {
         fetch('https://lyrania.co.uk/api/accounts.php?search=' + api_key)
             .then(res => {
                 if (res.ok) {
-                    console.log("FETCH RETURNED CODE: " + res.status)
                     res.json()
                         .then(data => {
-                            console.log(data.equipment)
                             let x = 0
                             for (const [key, value] of Object.entries(data.equipment)) {
                                 current[x].value = value
@@ -114,7 +112,7 @@ function fetchAPI(api_key) {
                             updateAllGoals()
                         })
                 } else {
-                    console.log("FETCH FAILED. ERROR:" + res.status)
+                    console.log("EQUIPMENT FETCH FAILED. ERROR:" + res.status)
                 }
             })
     } else {
@@ -171,20 +169,17 @@ window.onload = function () {
     fetch('https://lyrania.co.uk/api/accounts.php?search=12282')
         .then(res => {
             if (res.ok && res.status === 200) {
-                console.log("FETCH RETURNED CODE: " + res.status)
                 res.json()
                     .then(data => {
-                        console.log(data.name)
                         username = data.name
                         document.getElementById("footer").innerHTML = `Found an issue? Want to meme on me? Whisper or mail ${username} in game.`
                     })
             } else {
-                console.log("FETCH FAILED. ERROR:" + res.status)
+                console.log("USERNAME FETCH FAILED. ERROR:" + res.status + ". DEFAULT NAME WILL BE USED.")
                 document.getElementById("footer").innerHTML = `Found an issue? Want to meme on me? Whisper or mail ${username} in game. (API failed to fetch my current name. Ask in main.)`
             }
         })
     if ( checkCookie() ) {
-        console.log("true")
         fetchAPI(getCookie("key"))
     }
 }
