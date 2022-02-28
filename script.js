@@ -9,6 +9,34 @@ const costOutputs = document.querySelectorAll('output.cost-equip-class')
 console.log(apikey.value)
 let equipment = {}
 
+
+function setCookie(cname, cvalue) {
+    document.cookie = cname + "=" + cvalue + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+
+function checkCookie() {
+    let keyvalue = getCookie("key");
+    if (keyvalue != "") {
+        return true
+    }
+}
+
 //Disable or enable input when the Toggle Ratio checkbox is used.
 function toggleRatio() {
     if (toggle.checked) {
@@ -50,7 +78,7 @@ function updateAllGoals() {
 
 
 function fetchAPI(api_key) {
-    if (!apikey.value) {
+    if (!apikey.value && !checkCookie()) {
         currentInputs.forEach(input => {
             input.disabled = false
             input.value = 1
@@ -149,6 +177,10 @@ window.onload = function () {
                 document.getElementById("footer").innerHTML = `Found an issue? Want to meme on me? Whisper or mail ${username} in game. (API failed to fetch my current name. Ask in main.)`
             }
         })
+    if ( checkCookie() ) {
+        console.log("true")
+        fetchAPI(getCookie("key"))
+    }
 }
 
 
