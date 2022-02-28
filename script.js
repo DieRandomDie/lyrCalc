@@ -10,12 +10,13 @@ console.log(apikey.value)
 let equipment = {}
 
 
-function setCookie(cname, cvalue) {
-    if (getCookie("key")) {
+function setCookie(cvalue) {
+    let cookie = getCookie("key")
+    if (cookie && cookie == apikey.value) {
         return 0
     }
     if (apikey.value.length == 32) {
-        document.cookie = cname + "=" + cvalue + ";path=/"
+        document.cookie = "key=" + cvalue + ";path=/"
     }
 }
 
