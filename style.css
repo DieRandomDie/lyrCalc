@@ -34,14 +34,17 @@ input::-webkit-inner-spin-button {
 
 .left {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 2fr 1fr;
     gap: 3px 30px;
-    justify-content: end;
+    justify-content: left;
 }
 
+.left output {
+    text-align: right;
+}
 .center {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 3px 30px;
     justify-content: end;
 }
@@ -58,23 +61,6 @@ input::-webkit-inner-spin-button {
 
 .right legend, .right output {
     text-align: right;
-}
-
-#total {
-    display: grid;
-    gap: 5px;
-    grid-column: 3;
-    text-align: right;margin-inline-start: 2px;
-    margin-inline-end: 2px;
-    padding-block-start: 0.35em;
-    padding-inline-start: 0.75em;
-    padding-inline-end: 0.75em;
-    padding-block-end: 0.625em;
-    min-inline-size: min-content;
-    border-width: 2px;
-    border-style: groove;
-    border-color: threedface;
-    border-image: initial;
 }
 
 footer {
