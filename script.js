@@ -121,7 +121,6 @@ function fetchAPI(api_key) {
         setTimeout(() => {
             apikey.type = "password"
             apikey.value = ""
-            apikey.focus(apikey.select())
         }, 1000)
     }
 }
