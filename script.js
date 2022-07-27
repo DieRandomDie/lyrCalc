@@ -88,6 +88,10 @@ function updateAllGoals() {
     })
 }
 
+function updateEquipPower() {
+    console.log("Hello World")
+}
+
 
 function fetchAPI(api_key) {
     if (!apikey.value && !checkCookie()) {
@@ -154,18 +158,44 @@ function ecalc(equip_name) {
     totalCost()
 }
 
+function orb_boost(equip) {
+    let boost = 0
+    const orb = equipment[equip].orb
+    switch(orb) {
+        case "Poor": boost = 0.2; break
+        case "Decent": boost = 0.4; break
+        case "Fine": boost = 0.6; break
+        case "Quality": boost = 0.8; break
+        case "Flawless": boost = 1; break
+        case "Exquisite": boost = 1.2; break
+        case "Crystalline": boost = 1.4; break
+        case "Prismatic": boost = 1.6; break
+        case "Chromatic": boost = 1.8; break
+        case "Perfect": boost = 2; break
+    }
+    return boost
+}
+
 function pcalc() {
     let weapon_power = 0
     let armour_power = 0
     let power = 0
+    let fest_boost = 0
+    let chant_boost = 0
     for(let equip in equipment) {
-        power = Math.round(((0.5*equipment[equip].level*(equipment[equip].level-1)+1)+((0.5*equipment[equip].level*(equipment[equip].level-1)+1)*1.4))*(1+.88)*(1+.48))
+        console.log(equip + " " + typeof(equip))
+        fest_boost = equip === "shortsword" || equip === "dagger" ? wpFest.value/100 : apFest.value/100
+        console.log(fest_boost)
+        chant_boost = equip === "shortsword" || equip === "dagger" ? wpChant.value/100 : apChant.value/100
+        console.log(chant_boost)
+        power = Math.round(((0.5*equipment[equip].level*(equipment[equip].level-1)+1)+((0.5*equipment[equip].level*(equipment[equip].level-1)+1)*orb_boost(equip)))*(1+fest_boost)*(1+chant_boost))
         if(equip === "shortsword" || equip === "dagger") {
             weapon_power += power
         } else {
             armour_power += power
         }
     }
+    console.log(weapon_power + " " + armour_power)
 }
 
 
@@ -202,4 +232,4 @@ window.onload = function () {
 }
 
 
-//let power = ((0.5*level*(level-1)+1)+((0.5*level*(level-1)+1)*orbPercent))*(1+enchantPercent)*(1+festPercent)
+let power = ((0.5*level*(level-1)+1)+((0.5*level*(level-1)+1)*orbPercent))*(1+enchantPercent)*(1+festPercent)

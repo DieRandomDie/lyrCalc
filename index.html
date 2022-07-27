@@ -95,19 +95,19 @@
             <label for="cost-boots">Boots</label>
             <output class="cost-equip-class" id="cost-boots">0p</output>
         </fieldset>
-        <fieldset id="equipment-power-before" class="left">
-            <legend>Current Equipment Power</legend>
-                <label for="weapon-power-before">WP:</label>
-                <output id="weapon-power-before">WIP</output>
-                <label for="armor-power-before">AP:</label>
-                <output id="armor-power-before">WIP</output>
+        <fieldset id="chant-settings" class="chant-settings left">
+            <legend>Equipment Chant Settings</legend>
+            <label for="wp-chant">WP Chants</label>
+            <input type="number" id="wp-chant" value="0" oninput="updateEquipPower()">
+            <label for="ap-chant">AP Chants</label>
+            <input type="number" id="ap-chant" value="0" oninput="updateEquipPower()">
         </fieldset>
-        <fieldset id="equipment-power-after" class="left">
-            <legend>New Equipment Power</legend>
-            <label for="weapon-power-after">WP:</label>
-            <output id="weapon-power-after">WIP</output>
-            <label for="armor-power-after">AP:</label>
-            <output id="armor-power-after">WIP</output>
+        <fieldset id="fest-settings" class="fest-settings center">
+            <legend>Equipment Fest Settings</legend>
+            <label for="wp-fest">WP Fest</label>
+            <input type="number" id="wp-fest" value="0" oninput="updateEquipPower()">
+            <label for="ap-fest">AP Fest</label>
+            <input type="number" id="ap-fest" value="0" oninput="updateEquipPower()">
         </fieldset>
         <fieldset id="total" class="right">
             <legend>Total Cost</legend>
@@ -115,6 +115,20 @@
             <output id="total-cost">0p</output>
             <label for="total-needed">Needed</label>
             <output id="total-needed">WIP</output>
+        </fieldset>
+        <fieldset id="equipment-power-before" class="left">
+            <legend>Current Equipment Power</legend>
+            <label for="weapon-power-before">WP:</label>
+            <output id="weapon-power-before">WIP</output>
+            <label for="armor-power-before">AP:</label>
+            <output id="armor-power-before">WIP</output>
+        </fieldset>
+        <fieldset id="equipment-power-after" class="left">
+            <legend>New Equipment Power</legend>
+            <label for="weapon-power-after">WP:</label>
+            <output id="weapon-power-after">WIP</output>
+            <label for="armor-power-after">AP:</label>
+            <output id="armor-power-after">WIP</output>
         </fieldset>
     </form>
 </main>
