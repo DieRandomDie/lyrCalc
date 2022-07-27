@@ -1,5 +1,11 @@
-let apikey = document.getElementById("api-key")
-let toggle = document.getElementById("toggle-ratio")
+const apikey = document.getElementById("api-key")
+const toggle = document.getElementById("toggle-ratio")
+const discount = document.getElementById("blacksmith")
+let discountValue = 1 - Number(discount.value) / 100
+const wpChant = document.getElementById("weapon-chant")
+const apChant = document.getElementById("armour-chant")
+const wpFest = document.getElementById("weapon-fest")
+const apFest = document.getElementById("armour-fest")
 let current = document.getElementsByClassName('current-equip-class')
 const currentInputs = document.querySelectorAll('input.current-equip-class')
 let goal = document.getElementsByClassName('goal-equip-class')
@@ -131,8 +137,6 @@ function ecalc(equip_name) {
     let currentValue = Number(current.value)
     let goal = document.getElementById("goal-" + equip_name)
     let goalValue = Number(goal.value)
-    let discount = document.getElementById("blacksmith")
-    let discountValue = 1 - Number(discount.value) / 100
     let result = document.getElementById("cost-" + equip_name)
     let cost = 0
     if (goalValue > 10000) {
@@ -148,6 +152,20 @@ function ecalc(equip_name) {
     }
     result.value = Math.ceil(cost).toLocaleString() + "p"
     totalCost()
+}
+
+function pcalc() {
+    let weapon_power = 0
+    let armour_power = 0
+    let power = 0
+    for(let equip in equipment) {
+        power = Math.round(((0.5*equipment[equip].level*(equipment[equip].level-1)+1)+((0.5*equipment[equip].level*(equipment[equip].level-1)+1)*1.4))*(1+.88)*(1+.48))
+        if(equip === "shortsword" || equip === "dagger") {
+            weapon_power += power
+        } else {
+            armour_power += power
+        }
+    }
 }
 
 
