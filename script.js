@@ -6,24 +6,31 @@ const wpChant = document.getElementById("weapon-chant")
 const apChant = document.getElementById("armour-chant")
 const wpFest = document.getElementById("weapon-fest")
 const apFest = document.getElementById("armour-fest")
-let current = document.getElementsByClassName('current-equip-class')
+const current = document.getElementsByClassName('current-equip-class')
 const currentInputs = document.querySelectorAll('input.current-equip-class')
-let goal = document.getElementsByClassName('goal-equip-class')
+const goal = document.getElementsByClassName('goal-equip-class')
 const goalInputs = document.querySelectorAll('input.goal-equip-class')
 const sameGoals = document.querySelectorAll('input.same-goal-equip-class')
 const costOutputs = document.querySelectorAll('output.cost-equip-class')
-console.log(apikey.value)
+const currentWPOutput = document.getElementById('current-weapon-power')
+const currentAPOutput = document.getElementById('current-armour-power')
+const newWPOutput = document.getElementById('new-weapon-power')
+const newAPOutput = document.getElementById('new-armour-power')
 let equipment = {}
 
 
-function setCookie(cvalue) {
+function setCookie() {
     let cookie = getCookie("key")
     if (cookie && cookie == apikey.value) {
         return 0
     }
     if (apikey.value.length == 32) {
-        document.cookie = "key=" + cvalue + ";path=/"
+        document.cookie = "key=" + apikey.value + ";Secure"
     }
+    document.cookie = "wpc=" + wpChant.value + ";Secure"
+    document.cookie = "apc=" + apChant.value + ";Secure"
+    document.cookie = "wpf=" + wpFest.value + ";Secure"
+    document.cookie = "apf=" + apFest.value + ";Secure"
 }
 
 function getCookie(cname) {
@@ -35,9 +42,12 @@ function getCookie(cname) {
             c = c.substring(1)
         }
         if (c.indexOf(name) == 0) {
+
+            console.log("Retrieved " + cname)
             return c.substring(name.length, c.length)
         }
     }
+    console.log("Retrieved " + cname)
     return ""
 }
 
@@ -120,6 +130,8 @@ function fetchAPI(api_key) {
                             }
                             currentInputs.forEach(input => input.disabled = true)
                             updateAllGoals()
+                            cpcalc()
+                            npcalc()
                         })
                 } else {
                     console.log("EQUIPMENT FETCH FAILED. ERROR:" + res.status)
@@ -156,6 +168,7 @@ function ecalc(equip_name) {
     }
     result.value = Math.ceil(cost).toLocaleString() + "p"
     totalCost()
+    npcalc()
 }
 
 function orb_boost(equip) {
@@ -176,26 +189,37 @@ function orb_boost(equip) {
     return boost
 }
 
-function pcalc() {
-    let weapon_power = 0
-    let armour_power = 0
-    let power = 0
-    let fest_boost = 0
-    let chant_boost = 0
-    for(let equip in equipment) {
-        console.log(equip + " " + typeof(equip))
-        fest_boost = equip === "shortsword" || equip === "dagger" ? wpFest.value/100 : apFest.value/100
-        console.log(fest_boost)
-        chant_boost = equip === "shortsword" || equip === "dagger" ? wpChant.value/100 : apChant.value/100
-        console.log(chant_boost)
-        power = Math.round(((0.5*equipment[equip].level*(equipment[equip].level-1)+1)+((0.5*equipment[equip].level*(equipment[equip].level-1)+1)*orb_boost(equip)))*(1+fest_boost)*(1+chant_boost))
-        if(equip === "shortsword" || equip === "dagger") {
-            weapon_power += power
+function cpcalc() {
+    let current_weapon_power = 0
+    let current_armour_power = 0
+    for (let equip in equipment) {
+        let fest_boost = equip === "shortsword" || equip === "dagger" ? wpFest.value / 100 : apFest.value / 100
+        let chant_boost = equip === "shortsword" || equip === "dagger" ? wpChant.value / 100 : apChant.value / 100
+        let power = Math.round(((0.5 * equipment[equip].level * (equipment[equip].level - 1) + 1) + ((0.5 * equipment[equip].level * (equipment[equip].level - 1) + 1) * orb_boost(equip))) * (1 + fest_boost) * (1 + chant_boost))
+        if (equip === "shortsword" || equip === "dagger") {
+            current_weapon_power += power
         } else {
-            armour_power += power
+            current_armour_power += power
         }
     }
-    console.log(weapon_power + " " + armour_power)
+    currentWPOutput.innerHTML = current_weapon_power.toLocaleString()
+    currentAPOutput.innerHTML = current_armour_power.toLocaleString()
+}
+function npcalc() {
+    let new_weapon_power = 0
+    let new_armour_power = 0
+    for(let i = 0; i < 9; i++) {
+        let fest_boost = i < 2 ? wpFest.value/100 : apFest.value/100
+        let chant_boost = i < 2 ? wpChant.value/100 : apChant.value/100
+        let power = Math.round(((0.5*goalInputs[i].value*(goalInputs[i].value-1)+1)+((0.5*goalInputs[i].value*(goalInputs[i].value-1)+1)*orb_boost(Object.keys(equipment)[i])))*(1+fest_boost)*(1+chant_boost))
+        if(i < 2) {
+            new_weapon_power += power
+        } else {
+            new_armour_power += power
+        }
+    }
+    newWPOutput.innerHTML = new_weapon_power.toLocaleString()
+    newAPOutput.innerHTML = new_armour_power.toLocaleString()
 }
 
 
@@ -228,8 +252,9 @@ window.onload = function () {
         })
     if ( checkCookie() ) {
         fetchAPI(getCookie("key"))
+        wpChant.value = getCookie("wpc")
+        apChant.value = getCookie("apc")
+        wpFest.value = getCookie("wpf")
+        apFest.value = getCookie("apf")
     }
 }
-
-
-let power = ((0.5*level*(level-1)+1)+((0.5*level*(level-1)+1)*orbPercent))*(1+enchantPercent)*(1+festPercent)

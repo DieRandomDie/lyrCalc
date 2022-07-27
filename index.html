@@ -19,19 +19,6 @@
             <label for="toggle-ratio">Force Ratio</label>
             <input type="checkbox" id="toggle-ratio" oninput="toggleRatio(); updateAllGoals()">
         </fieldset>
-        <fieldset class="boosts top">
-            <legend>Equipment Boosts</legend>
-            <label for="weapon-chant">Weapon Chant</label>
-            <input type="number" id="weapon-chant" value="0">
-            <label for="armour-chant">Armour Chant</label>
-            <input type="number" id="armour-chant" value="0">
-            <label for="weapon-wax">Weapon Wax</label>
-            <input type="checkbox" id="weapon-wax">
-            <label for="weapon-fest">Weapon Fest</label>
-            <input type="number" id="weapon-fest" value="0">
-            <label for="armour-fest">Armour Fest</label>
-            <input type="number" id="armour-fest" value="0">
-        </fieldset>
         <fieldset class="current left" id="current-equips">
             <legend>Current Equips</legend>
             <label for="current-shortsword">Shortsword</label>
@@ -97,17 +84,17 @@
         </fieldset>
         <fieldset id="chant-settings" class="chant-settings left">
             <legend>Equipment Chant Settings</legend>
-            <label for="wp-chant">WP Chants</label>
-            <input type="number" id="wp-chant" value="0" oninput="updateEquipPower()">
-            <label for="ap-chant">AP Chants</label>
-            <input type="number" id="ap-chant" value="0" oninput="updateEquipPower()">
+            <label for="weapon-chant">Weapon Chants</label>
+            <input type="number" id="weapon-chant" value="0" oninput="setCookie();pcalc()">
+            <label for="armour-chant">Armour Chants</label>
+            <input type="number" id="armour-chant" value="0" oninput="setCookie();pcalc()">
         </fieldset>
         <fieldset id="fest-settings" class="fest-settings center">
             <legend>Equipment Fest Settings</legend>
-            <label for="wp-fest">WP Fest</label>
-            <input type="number" id="wp-fest" value="0" oninput="updateEquipPower()">
-            <label for="ap-fest">AP Fest</label>
-            <input type="number" id="ap-fest" value="0" oninput="updateEquipPower()">
+            <label for="weapon-fest">Weapon Fest</label>
+            <input type="number" id="weapon-fest" value="0" oninput="setCookie();pcalc()">
+            <label for="armour-fest">Armour Fest</label>
+            <input type="number" id="armour-fest" value="0" oninput="setCookie();pcalc()">
         </fieldset>
         <fieldset id="total" class="right">
             <legend>Total Cost</legend>
@@ -116,19 +103,19 @@
             <label for="total-needed">Needed</label>
             <output id="total-needed">WIP</output>
         </fieldset>
-        <fieldset id="equipment-power-before" class="left">
-            <legend>Current Equipment Power</legend>
-            <label for="weapon-power-before">WP:</label>
-            <output id="weapon-power-before">WIP</output>
-            <label for="armor-power-before">AP:</label>
-            <output id="armor-power-before">WIP</output>
+        <fieldset class="left">
+            <legend>Current Power</legend>
+            <label for="current-weapon-power">Weapon Power</label>
+            <output type="number" id="current-weapon-power" value="0">0</output>
+            <label for="current-armour-power">Armour Power</label>
+            <output type="number" id="current-armour-power" value="0">0</output>
         </fieldset>
-        <fieldset id="equipment-power-after" class="left">
-            <legend>New Equipment Power</legend>
-            <label for="weapon-power-after">WP:</label>
-            <output id="weapon-power-after">WIP</output>
-            <label for="armor-power-after">AP:</label>
-            <output id="armor-power-after">WIP</output>
+        <fieldset class="center">
+            <legend>New Power</legend>
+            <label for="new-weapon-power">Weapon Power</label>
+            <output type="number" id="new-weapon-power" value="0">0</output>
+            <label for="new-armour-power">Armour Power</label>
+            <output type="number" id="new-armour-power" value="0">0</output>
         </fieldset>
     </form>
 </main>
