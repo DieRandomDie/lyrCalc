@@ -173,7 +173,7 @@ function ecalc(equip_name) {
 
 function orb_boost(equip) {
     let boost = 0
-    const orb = equipment[equip].orb
+    const orb = equipment.length > 0 ? equipment[equip].orb : "Poor"
     switch(orb) {
         case "Poor": boost = 0.2; break
         case "Decent": boost = 0.4; break
