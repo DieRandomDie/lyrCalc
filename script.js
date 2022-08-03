@@ -173,7 +173,7 @@ function ecalc(equip_name) {
 
 function orb_boost(equip) {
     let boost = 0
-    const orb = equipment.length > 0 ? equipment[equip].orb : "Poor"
+    const orb = Object.keys(equipment).length > 0 ? equipment[equip].orb : 0
     switch(orb) {
         case "Poor": boost = 0.2; break
         case "Decent": boost = 0.4; break
@@ -185,6 +185,7 @@ function orb_boost(equip) {
         case "Prismatic": boost = 1.6; break
         case "Chromatic": boost = 1.8; break
         case "Perfect": boost = 2; break
+        default: boost = 0; break
     }
     return boost
 }
