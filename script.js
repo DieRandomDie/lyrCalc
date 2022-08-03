@@ -17,6 +17,7 @@ const currentAPOutput = document.getElementById('current-armour-power')
 const newWPOutput = document.getElementById('new-weapon-power')
 const newAPOutput = document.getElementById('new-armour-power')
 let equipment = {}
+let plat = 0
 
 
 function setCookie() {
@@ -36,7 +37,7 @@ function setCookie() {
 function getCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';')
-    for(let i = 0; i < ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
         let c = ca[i]
         while (c.charAt(0) == ' ') {
             c = c.substring(1)
@@ -48,6 +49,17 @@ function getCookie(cname) {
         }
     }
     console.log("Retrieved " + cname)
+    equipment = {
+        boots: {orb: 'Shoddy', level: 1},
+        chestpiece: {orb: 'Shoddy', level: 1},
+        dagger: {orb: 'Shoddy', level: 1},
+        gloves: {orb: 'Shoddy', level: 1},
+        helmet: {orb: 'Shoddy', level: 1},
+        leggings: {orb: 'Shoddy', level: 1},
+        shortsword: {orb: 'Shoddy', level: 1},
+        shoulders: {orb: 'Shoddy', level: 1},
+        wrist: {orb: 'Shoddy', level: 1}
+    }
     return ""
 }
 
@@ -118,6 +130,7 @@ function fetchAPI(api_key) {
                 if (res.ok) {
                     res.json()
                         .then(data => {
+                            plat = parseInt(data.currency.money.split('p')[0].replace(/,/g, ''))
                             let x = 0
                             for (const [key, value] of Object.entries(data.equipment)) {
                                 current[x].value = value
@@ -174,18 +187,40 @@ function ecalc(equip_name) {
 function orb_boost(equip) {
     let boost = 0
     const orb = Object.keys(equipment).length > 0 ? equipment[equip].orb : 0
-    switch(orb) {
-        case "Poor": boost = 0.2; break
-        case "Decent": boost = 0.4; break
-        case "Fine": boost = 0.6; break
-        case "Quality": boost = 0.8; break
-        case "Flawless": boost = 1; break
-        case "Exquisite": boost = 1.2; break
-        case "Crystalline": boost = 1.4; break
-        case "Prismatic": boost = 1.6; break
-        case "Chromatic": boost = 1.8; break
-        case "Perfect": boost = 2; break
-        default: boost = 0; break
+    switch (orb) {
+        case "Poor":
+            boost = 0.2;
+            break
+        case "Decent":
+            boost = 0.4;
+            break
+        case "Fine":
+            boost = 0.6;
+            break
+        case "Quality":
+            boost = 0.8;
+            break
+        case "Flawless":
+            boost = 1;
+            break
+        case "Exquisite":
+            boost = 1.2;
+            break
+        case "Crystalline":
+            boost = 1.4;
+            break
+        case "Prismatic":
+            boost = 1.6;
+            break
+        case "Chromatic":
+            boost = 1.8;
+            break
+        case "Perfect":
+            boost = 2;
+            break
+        default:
+            boost = 0;
+            break
     }
     return boost
 }
@@ -199,6 +234,7 @@ function cpcalc() {
         let power = Math.round(((0.5 * equipment[equip].level * (equipment[equip].level - 1) + 1) + ((0.5 * equipment[equip].level * (equipment[equip].level - 1) + 1) * orb_boost(equip))) * (1 + fest_boost) * (1 + chant_boost))
         if (equip === "shortsword" || equip === "dagger") {
             current_weapon_power += power
+            console.log(current_weapon_power)
         } else {
             current_armour_power += power
         }
@@ -206,14 +242,15 @@ function cpcalc() {
     currentWPOutput.innerHTML = current_weapon_power.toLocaleString()
     currentAPOutput.innerHTML = current_armour_power.toLocaleString()
 }
+
 function npcalc() {
     let new_weapon_power = 0
     let new_armour_power = 0
-    for(let i = 0; i < 9; i++) {
-        let fest_boost = i < 2 ? wpFest.value/100 : apFest.value/100
-        let chant_boost = i < 2 ? wpChant.value/100 : apChant.value/100
-        let power = Math.round(((0.5*goalInputs[i].value*(goalInputs[i].value-1)+1)+((0.5*goalInputs[i].value*(goalInputs[i].value-1)+1)*orb_boost(Object.keys(equipment)[i])))*(1+fest_boost)*(1+chant_boost))
-        if(i < 2) {
+    for (let i = 0; i < 9; i++) {
+        let fest_boost = i < 2 ? wpFest.value / 100 : apFest.value / 100
+        let chant_boost = i < 2 ? wpChant.value / 100 : apChant.value / 100
+        let power = Math.round(((0.5 * goalInputs[i].value * (goalInputs[i].value - 1) + 1) + ((0.5 * goalInputs[i].value * (goalInputs[i].value - 1) + 1) * orb_boost(Object.keys(equipment)[i]))) * (1 + fest_boost) * (1 + chant_boost))
+        if (i < 2) {
             new_weapon_power += power
         } else {
             new_armour_power += power
@@ -226,13 +263,21 @@ function npcalc() {
 
 function totalCost() {
     let total = document.getElementById("total-cost")
+    let need = document.getElementById("total-needed")
     let totalValue = 0
+    let needValue = 0
     let rval = 0
     costOutputs.forEach(result => {
         rval = Number(result.innerHTML.replace(/,|p/g, ''))
         totalValue += rval
     })
+    needValue = totalValue - plat
     total.innerHTML = totalValue.toLocaleString() + "p"
+    if (needValue < 0) {
+        need.innerHTML = "Can Afford"
+    } else {
+        need.innerHTML = needValue.toLocaleString() + "p"
+    }
 }
 
 
@@ -251,11 +296,13 @@ window.onload = function () {
                 document.getElementById("footer").innerHTML = `Found an issue? Want to meme on me? Whisper or mail ${username} in game. (API failed to fetch my current name. Ask in main.)`
             }
         })
-    if ( checkCookie() ) {
+    if (checkCookie()) {
         fetchAPI(getCookie("key"))
         wpChant.value = getCookie("wpc")
         apChant.value = getCookie("apc")
         wpFest.value = getCookie("wpf")
         apFest.value = getCookie("apf")
     }
+    cpcalc()
+    npcalc()
 }
