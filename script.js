@@ -1,7 +1,6 @@
 const apikey = document.getElementById("api-key")
 const toggle = document.getElementById("toggle-ratio")
 const discount = document.getElementById("blacksmith")
-let discountValue = 1 - Number(discount.value) / 100
 const wpChant = document.getElementById("weapon-chant")
 const apChant = document.getElementById("armour-chant")
 const wpFest = document.getElementById("weapon-fest")
@@ -165,6 +164,7 @@ function ecalc(equip_name) {
     let goalValue = Number(goal.value)
     let result = document.getElementById("cost-" + equip_name)
     let cost = 0
+    let discountValue = 1 - Number(discount.value) / 100
     if (goalValue > 10000) {
         goalValue = 10000
         goal.value = 10000
@@ -182,6 +182,7 @@ function ecalc(equip_name) {
 }
 
 function orb_boost(equip) {
+    let boost
     const orb = Object.keys(equipment).length > 0 ? equipment[equip].orb : 0
     switch (orb) {
         case "Poor":
