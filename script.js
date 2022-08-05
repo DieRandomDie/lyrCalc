@@ -110,11 +110,6 @@ function updateAllGoals() {
     })
 }
 
-function updateEquipPower() {
-    console.log("Hello World")
-}
-
-
 function fetchAPI(api_key) {
     if (!apikey.value && !checkCookie()) {
         currentInputs.forEach(input => {
@@ -303,6 +298,4 @@ window.onload = function () {
         wpFest.value = getCookie("wpf")
         apFest.value = getCookie("apf")
     }
-    cpcalc()
-    npcalc()
 }
