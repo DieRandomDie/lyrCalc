@@ -22,10 +22,10 @@ let plat = 0
 
 function setCookie() {
     let cookie = getCookie("key")
-    if (cookie && cookie == apikey.value) {
+    if (cookie && cookie === apikey.value) {
         return 0
     }
-    if (apikey.value.length == 32) {
+    if (apikey.value.length === 32) {
         document.cookie = "key=" + apikey.value + ";Secure"
     }
     document.cookie = "wpc=" + wpChant.value + ";Secure"
@@ -39,10 +39,10 @@ function getCookie(cname) {
     let ca = document.cookie.split(';')
     for (let i = 0; i < ca.length; i++) {
         let c = ca[i]
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
             c = c.substring(1)
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
 
             console.log("Retrieved " + cname)
             return c.substring(name.length, c.length)
@@ -50,15 +50,15 @@ function getCookie(cname) {
     }
     console.log("Retrieved " + cname)
     equipment = {
-        boots: {orb: 'Shoddy', level: 1},
-        chestpiece: {orb: 'Shoddy', level: 1},
-        dagger: {orb: 'Shoddy', level: 1},
-        gloves: {orb: 'Shoddy', level: 1},
-        helmet: {orb: 'Shoddy', level: 1},
-        leggings: {orb: 'Shoddy', level: 1},
-        shortsword: {orb: 'Shoddy', level: 1},
-        shoulders: {orb: 'Shoddy', level: 1},
-        wrist: {orb: 'Shoddy', level: 1}
+        Boots: {orb: 'Shoddy', level: 1},
+        Chestpiece: {orb: 'Shoddy', level: 1},
+        Dagger: {orb: 'Shoddy', level: 1},
+        Gloves: {orb: 'Shoddy', level: 1},
+        Helmet: {orb: 'Shoddy', level: 1},
+        Leggings: {orb: 'Shoddy', level: 1},
+        Shortsword: {orb: 'Shoddy', level: 1},
+        Shoulders: {orb: 'Shoddy', level: 1},
+        Wrist: {orb: 'Shoddy', level: 1}
     }
     return ""
 }
@@ -66,7 +66,7 @@ function getCookie(cname) {
 
 function checkCookie() {
     let keyvalue = getCookie("key");
-    if (keyvalue != "") {
+    if (keyvalue !== "") {
         return true
     }
 }
@@ -132,14 +132,16 @@ function fetchAPI(api_key) {
                         .then(data => {
                             plat = parseInt(data.currency.money.split('p')[0].replace(/,/g, ''))
                             let x = 0
-                            for (const [key, value] of Object.entries(data.equipment)) {
-                                current[x].value = value
-                                goal[x].value = value
-                                x++
-                                equipment[key.split(" ")[1]] = {
-                                    orb: key.split(" ")[0],
-                                    level: Number(value)
+                            let current_level = 1
+                            for (const [key] of Object.entries(data.equipment)) {
+                                current_level = data.equipment[key].level
+                                current[x].value = current_level
+                                goal[x].value = current_level
+                                equipment[key] = {
+                                    level: current_level,
+                                    orb: data.equipment[key].orb
                                 }
+                                x++
                             }
                             currentInputs.forEach(input => input.disabled = true)
                             updateAllGoals()
@@ -185,7 +187,6 @@ function ecalc(equip_name) {
 }
 
 function orb_boost(equip) {
-    let boost = 0
     const orb = Object.keys(equipment).length > 0 ? equipment[equip].orb : 0
     switch (orb) {
         case "Poor":
@@ -229,10 +230,10 @@ function cpcalc() {
     let current_weapon_power = 0
     let current_armour_power = 0
     for (let equip in equipment) {
-        let fest_boost = equip === "shortsword" || equip === "dagger" ? wpFest.value / 100 : apFest.value / 100
-        let chant_boost = equip === "shortsword" || equip === "dagger" ? wpChant.value / 100 : apChant.value / 100
+        let fest_boost = equip === "Shortsword" || equip === "Dagger" ? wpFest.value / 100 : apFest.value / 100
+        let chant_boost = equip === "Shortsword" || equip === "Dagger" ? wpChant.value / 100 : apChant.value / 100
         let power = Math.round(((0.5 * equipment[equip].level * (equipment[equip].level - 1) + 1) + ((0.5 * equipment[equip].level * (equipment[equip].level - 1) + 1) * orb_boost(equip))) * (1 + fest_boost) * (1 + chant_boost))
-        if (equip === "shortsword" || equip === "dagger") {
+        if (equip === "Shortsword" || equip === "Dagger") {
             current_weapon_power += power
             console.log(current_weapon_power)
         } else {
@@ -265,13 +266,12 @@ function totalCost() {
     let total = document.getElementById("total-cost")
     let need = document.getElementById("total-needed")
     let totalValue = 0
-    let needValue = 0
     let rval = 0
     costOutputs.forEach(result => {
         rval = Number(result.innerHTML.replace(/,|p/g, ''))
         totalValue += rval
     })
-    needValue = totalValue - plat
+    let needValue = totalValue - plat
     total.innerHTML = totalValue.toLocaleString() + "p"
     if (needValue < 0) {
         need.innerHTML = "Can Afford"
