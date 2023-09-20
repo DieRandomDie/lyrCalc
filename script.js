@@ -22,7 +22,6 @@ async function getData(a) {
 }
 function dataUpdate(p) {
     plat = parseInt((p.currency.money).split('p')[0].replaceAll(',',''))
-    console.log(plat)
     const e = p.equipment
     $("#current-shortsword").val(parseInt(e.Shortsword.level))
     $("#current-dagger").val(parseInt(e.Dagger.level))
