@@ -87,7 +87,7 @@ toggle.on("change", function () {
 })
 equip.on("input", function() {
     if (this.value > 25000) {this.value = 25000}
-    if (this.value < 1) {this.value = 1}
+    if (this.value < 0) {this.value = 0}
     if (toggle.is(':checked') && this.classList.contains('goal')) {
         let c = $('.'+this.classList[0])
         c.each(i => {
