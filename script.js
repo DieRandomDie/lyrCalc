@@ -148,7 +148,7 @@ equip.on("input", function() {
 })
 
 $('.boost').on('input', function(){
-    if (this.value > 100) {this.value = 100}
+    if (this.value > 200) {this.value = 200}
     if (this.value < 0) {this.value = 0}
     power('current')
     power('goal')
