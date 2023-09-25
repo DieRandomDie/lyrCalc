@@ -168,7 +168,6 @@ window.onload = function () {
                     $("#footer").text(`Found an issue? Want to meme on me? Whisper or mail ${username} in game.`)
                 })
         } else {
-            console.log("USERNAME FETCH FAILED. ERROR:" + res.status + ". DEFAULT NAME WILL BE USED.")
             $("#footer").text(`Found an issue? Want to meme on me? Whisper or mail ${username} in game. (API failed to fetch my current name. Ask in main.)`)
         }
     })
