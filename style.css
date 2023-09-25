@@ -6,7 +6,7 @@ body {
 input {
     background-color: rgb(1, 1, 1, .4);
     color: white;
-    width: 50px;
+    width: 40px;
 }
 
 input::-webkit-outer-spin-button,
@@ -15,8 +15,12 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+select {
+    width: auto;
+}
+
 .container {
-    max-width: 725px;
+    max-width: 800px;
     margin: auto;
 }
 
@@ -38,6 +42,10 @@ input::-webkit-inner-spin-button {
     grid-template-columns: 2fr 1fr;
     gap: 5px 25px;
     justify-content: left;
+}
+
+.current {
+    grid-template-columns:  repeat(3, 1fr);
 }
 
 .left output {
