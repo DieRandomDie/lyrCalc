@@ -4,6 +4,7 @@ const equip = $('.equip')
 const equipcost = $('.cost')
 const blacksmith = $('#blacksmith')
 let plat = 0
+let equips = {c:{w:2,a:7},g:{w:2,a:7}}
 async function getData(a) {
     await fetch('https://lyrania.co.uk/api/accounts.php?search=' + a)
     .then(res => {
@@ -69,15 +70,15 @@ function cost(c, g) {
     return cost
 }
 
-function power(c) {
+function power(x) {
     let wp = 0
     let ap = 0
     let wf = parseInt($('#weapon-fest').val())/50
     let af = parseInt($('#armour-fest').val())/50
     let wc = parseInt($('#weapon-chant').val())/100
     let ac = parseInt($('#armour-chant').val())/100
-    $('input.'+c).each(i=>{
-        let l = parseInt($('input.' + c)[i].value)
+    $('input.'+x).each(i=>{
+        let l = parseInt($('input.' + x)[i].value)
         let o = (parseInt($('select')[i].value)/100)
         let fest = i>1 ? af : wf
         let chant = i>1 ? ac : wc
@@ -85,8 +86,17 @@ function power(c) {
         wp += i>1 ? 0 : p
         ap += i>1 ? p : 0
     })
-    $(`#${c}-weapon-power`).val(wp.toLocaleString())
-    $(`#${c}-armour-power`).val(ap.toLocaleString())
+    if(x==="current") {
+        equips.c.w = wp
+        equips.c.a = ap
+    } else {
+        equips.g.w = wp
+        equips.g.a = ap
+    }
+    $(`#${x}-weapon-power`).val(wp.toLocaleString())
+    $(`#${x}-armour-power`).val(ap.toLocaleString())
+    $('#percent-weapon-power').val((((equips.g.w/equips.c.w)-1)*100).toFixed(1) + '%')
+    $('#percent-armour-power').val((((equips.g.a/equips.c.a)-1)*100).toFixed(1) + '%')
 }
 function update(e) {
     let c = cost($('#current-'+e).val(),$('#goal-'+e).val())
