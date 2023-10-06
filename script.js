@@ -1,5 +1,6 @@
 const api = $('#api-key')
 const toggle = $('#toggle-ratio')
+const toggleable = $('.toggle')
 const equip = $('.equip')
 const equipcost = $('.cost')
 const blacksmith = $('#blacksmith')
@@ -125,6 +126,7 @@ function updateAll() {
 }
 api.on("focusout", function() {
     if (api.val().length === 32) {
+        localStorage.setItem('api', api.val())
         getData(api.val())
     } else {
         api.val("Invalid")
@@ -143,11 +145,11 @@ toggle.on("change", function () {
         update(equipcost[i].id.split('-')[1])
     })
     if(this.checked) {
-        $('.toggle').prop('disabled',true)
-        $('.toggle').css('visibility','hidden')
+        toggleable.prop('disabled',true)
+        toggleable.css('visibility','hidden')
     } else {
-        $('.toggle').prop('disabled',false)
-        $('.toggle').css('visibility','visible')
+        toggleable.prop('disabled',false)
+        toggleable.css('visibility','visible')
     }
     power('goal')
 })
@@ -167,13 +169,22 @@ equip.on("input", function() {
 })
 
 $('.boost').on('input', function(){
+
     if (this.value > 200) {this.value = 200}
     if (this.value < 0) {this.value = 0}
+    localStorage.setItem(this.id, this.value)
     power('current')
     power('goal')
 })
 
 window.onload = function () {
+    $('#weapon-chant').val(localStorage['weapon-chant'])
+    $('#armour-chant').val(localStorage['armour-chant'])
+    $('#weapon-fest').val(localStorage['weapon-fest'])
+    $('#armour-fest').val(localStorage['armour-fest'])
+    if(localStorage['api']) {
+        getData(localStorage['api'])
+    }
     $('select').each(i=>{
         $('select')[i].innerHTML = `<option value="0">None</option><option value="20">Poor</option><option value="40">Decent</option><option value="60">Fine</option><option value="80">Quality</option><option value="100">Flawless</option><option value="120">Exquisite</option><option value="140">Crystalline</option><option value="160">Prismatic</option><option value="180">Chromatic</option><option value="200">Perfect</option>`
     })
