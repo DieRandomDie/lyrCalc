@@ -178,13 +178,11 @@ $('.boost').on('input', function(){
 })
 
 window.onload = function () {
-    $('#weapon-chant').val(localStorage['weapon-chant'])
-    $('#armour-chant').val(localStorage['armour-chant'])
-    $('#weapon-fest').val(localStorage['weapon-fest'])
-    $('#armour-fest').val(localStorage['armour-fest'])
-    if(localStorage['api']) {
-        getData(localStorage['api'])
-    }
+    if(localStorage['weapon-chant']){$('#weapon-chant').val(localStorage['weapon-chant'])}
+    if(localStorage['armour-chant']){$('#armour-chant').val(localStorage['armour-chant'])}
+    if(localStorage['weapon-fest']){$('#weapon-fest').val(localStorage['weapon-fest'])}
+    if(localStorage['armour-fest']){$('#armour-fest').val(localStorage['armour-fest'])}
+    if(localStorage['api']) {getData(localStorage['api'])}
     $('select').each(i=>{
         $('select')[i].innerHTML = `<option value="0">None</option><option value="20">Poor</option><option value="40">Decent</option><option value="60">Fine</option><option value="80">Quality</option><option value="100">Flawless</option><option value="120">Exquisite</option><option value="140">Crystalline</option><option value="160">Prismatic</option><option value="180">Chromatic</option><option value="200">Perfect</option>`
     })
